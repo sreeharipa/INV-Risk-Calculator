@@ -6,6 +6,7 @@
 using namespace std;
 
 
+
 class Riskcalc
 {
 public: 
@@ -20,6 +21,7 @@ public:
     void riskiso();
     void eavelv();
     void riskacgih();
+    float round(float);
     Riskcalc()
     {
         getinput();
@@ -38,6 +40,16 @@ public:
     } 
 
 };
+
+float Riskcalc::round(float var)
+{
+    // 37.66666 * 100 =3766.66
+    // 3766.66 + .5 =3767.16    for rounding off value
+    // then type cast to int so value is 3767
+    // then divided by 100 so the value converted into 37.67
+    float value = (int)(var * 100 + .5);
+    return (float)value / 100;
+}
 
 void Riskcalc::getinput()
 {
@@ -118,7 +130,7 @@ void Riskcalc::sumfactormultiply()
     cout<<"Weighted acceleration after multiplying by sum factor: "<<endl;
     for(int i = 0; i<3; i++)
     {
-        cout<<karms[i]<<endl;
+        cout<<round(karms[i])<<endl;
     }
 
 
@@ -147,7 +159,7 @@ void Riskcalc::domaxis()
     {
         cout<<"Dominant axis is the z axis"<<endl;
     }  
-    cout<<"The rms acceleration in the dominant axis is "<<arms[max]<<" which after multiplying by sum factor becomes "<<karms[max]<<endl;
+    cout<<"The rms acceleration in the dominant axis is "<<arms[max]<<" which after multiplying by sum factor becomes "<<round(karms[max])<<endl;
     domax = max;
     
 
@@ -158,12 +170,12 @@ void Riskcalc::eavelv()
 {
     eav = (pow(0.5, 2)*8)/pow(karms[domax], 2);
     elv = (pow(1.15, 2)*8)/pow(karms[domax], 2);
-    cout<<"Time to reach EAV (As per ACGIH Standards): "<<eav<<" hrs"<<endl;
-    cout<<"Time to reach ELV (As per ACGIH Standards): "<<elv<<" hrs"<<endl;
+    cout<<"Time to reach EAV (As per ACGIH Standards): "<<round(eav)<<" hrs"<<endl;
+    cout<<"Time to reach ELV (As per ACGIH Standards): "<<round(elv)<<" hrs"<<endl;
     aeight = sqrt((pow(karms[domax], 2)*exposure)/8);
-    cout<<"A(8) value for the given data is "<<aeight<<endl;
+    cout<<"A(8) value for the given data is "<<round(aeight)<<endl;
     vdveight = pow(((pow(vdv[domax], 4)*exposure)/8), 1.0/4);
-    cout<<"VDV(8) value for the given data is "<<vdveight<<endl;
+    cout<<"VDV(8) value for the given data is "<<round(vdveight)<<endl;
 
 }
 
